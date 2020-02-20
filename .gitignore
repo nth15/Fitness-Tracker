@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+FitnessTracker.zip
 
 ### STS ###
 .apt_generated
