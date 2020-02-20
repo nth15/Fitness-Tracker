@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+</head>
+<body>
+<p th:text="${arrayToJson}"></p>
+<div class="chartContainer">
+    <canvas id="myChart" width="300" height="200"></canvas>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        var msg  = [[${arrayToJson}]];
+
+        /*]]>*/
+
+        var d = JSON.parse(msg);
+        console.log(typeof d);
+        console.log(d[1]);
+        var dur = new Array();
+        var date = new Array();
+        var type = new Array();
+        var sorted = new Array();
+        var ind = new Array();
+        for (var i = 0; i < d.length; i++) {
+            dur[i] = d[i].duration;
+            date[i] = d[i].date.slice(5,10);
+            type[i] = d[i].title;
+            if (!ind.includes(d[i].title)) {
+                ind.push(d[i].title)
+                sorted[ind.length-1] = new Array();
+                dd[ind.length-1] = new Array();
+            }
+
+            sorted[ind.indexOf(d[i].title)][i] = d[i].duration;
+        }
+        console.log(ind);
+        console.log(sorted);
+
+        console.log(typeof date[1])
+        console.log(date);
+        console.log(dur);
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: date,
+                datasets: [{
+                    label: ind[0],
+                    data: sorted[0],
+                    borderColor: "#"+((1<<24)*Math.random()|0).toString(16),
+                    fill: false,
+                    borderWidth: 1
+                },
+                    {
+                        label: ind[1],
+                        data: sorted[1],
+                        borderColor: "#"+((1<<24)*Math.random()|0).toString(16),
+                        fill: false,
+                        borderWidth: 1
+                    },
+                    {
+                        label: ind[2],
+                        data: sorted[2],
+                        borderColor: "#"+((1<<24)*Math.random()|0).toString(16),
+                        fill: false,
+                        borderWidth: 1
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                spanGaps: true,
+            },
+        });
+    </script>
+</div>
+</body>
+</html>
