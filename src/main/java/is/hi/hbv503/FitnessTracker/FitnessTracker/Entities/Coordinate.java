@@ -2,6 +2,10 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
 import javax.persistence.*;
 
+/**
+ * Coordinates to map out the route for Route
+ * TODO JSON example object
+ */
 @Entity
 public class Coordinate {
 

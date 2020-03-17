@@ -4,13 +4,21 @@ import java.util.Queue;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Route object used by Cardio to map out a Route
+ * with a Queue<Coordinate>
+ * TODO JSON example object
+ */
 @Entity
 public class Route {
 
     @NotNull
     private String name;
     /** 
-     * TODO queue eða eh annað 
+     * !!!!!!!!!!!!!!
+     * TODO
+     * !!!!!!!!!!!!!! 
+     * queue eða eh annað 
      * */
     @OneToMany(mappedBy = "route")
     private Queue<Coordinate> polyline;

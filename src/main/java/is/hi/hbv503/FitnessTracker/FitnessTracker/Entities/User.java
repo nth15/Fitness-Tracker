@@ -1,16 +1,18 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-
-
+/**
+ * User conatins username, password and userExercises
+ * TODO JSON example object
+ */
 @Entity
 @Table(name = "USER")
-public class User{
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,6 +22,19 @@ public class User{
 
     @OneToMany(mappedBy = "user")
     private ArrayList<Exercise> userExercices;
+    
+    /**
+     * Initializes user with empty userExercises
+     * Used in development
+     * @param userName
+     * @param password
+     */
+    public User(String userName, String password) {
+        //super();
+        this.userName = userName;
+        this.password = password;
+        this.userExercices = new ArrayList<Exercise>();
+    }
 
     public ArrayList<Exercise> getUserExercice() {
         return userExercices;
@@ -56,13 +71,6 @@ public class User{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public User(String userName, String password) {
-        //super();
-        this.userName = userName;
-        this.password = password;
-        this.userExercices = new ArrayList<Exercise>();
     }
 
     public void addExercice(Exercise exercise) {

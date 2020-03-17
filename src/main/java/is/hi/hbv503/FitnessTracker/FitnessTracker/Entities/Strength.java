@@ -2,16 +2,22 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
+/**
+ * Strength extends Exercise
+ * TODO JSON example object
+ */
 @Entity
-public class Strength {
+public class Strength extends Exercise {
     
     @NotNull
     private int weight;
     @NotNull
     private int times;
 
-    public Strength(int weight, int times) {
+    public Strength(int duration, Date date, String type, int weight, int times) {
+        super(duration, date, type);
         this.weight = weight;
         this.times = times;
     }
