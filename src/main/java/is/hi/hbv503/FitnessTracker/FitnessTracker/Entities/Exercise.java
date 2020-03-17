@@ -4,6 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * Exercise object Extended by Cardio and Strength
+ * TODO JSON example object
+ */
 @Entity
 public class Exercise {
     @Id

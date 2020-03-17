@@ -2,16 +2,23 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
+/**
+ * Cardio extends Exercise, can include Route with GPS coordinates.
+ * TODO JSON example object
+ */
 @Entity
 public class Cardio extends Exercise {
 
+    // km/h
     private int topSpeed;
     @NotNull
     private int distance;
     private Route route;
 
-    public Cardio(int topSpeed,int distance, Route route) {
+    public Cardio(int duration, Date date, String type, int topSpeed,int distance, Route route) {
+        super(duration, date, type);
         this.topSpeed = topSpeed;
         this.distance = distance;
         this.route = route;
