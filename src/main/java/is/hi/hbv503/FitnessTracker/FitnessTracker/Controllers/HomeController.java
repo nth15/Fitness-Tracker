@@ -3,6 +3,7 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Controllers;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Entities.*;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.ExerciseService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.UserService;
+import is.hi.hbv503.FitnessTracker.FitnessTracker.Wrappers.Responses.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -41,14 +42,14 @@ public class HomeController {
         this.exerciseService = exerciseService;
         this.userService = userService;
     }
-
+    
     /**
      * Home
      * @return
      */
     @RequestMapping("/")
-    public String Home() {
-        return new ResponseEntity<>(new GetUserResponse(ExerciseService.findAll()), HttpStatus.OK);
+    public ResponseEntity<GetExercisesResponse> Home() {
+        return new ResponseEntity<>(new GetExercisesResponse(exerciseService.findAll()), HttpStatus.OK);
     }
-
+    
 }
