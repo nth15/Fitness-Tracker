@@ -13,8 +13,6 @@ import java.util.List;
 public class UserServiceImplementation implements UserService{
     UserRepository repository;
 
-    UserService userService;
-
     @Autowired
     public UserServiceImplementation(UserRepository repository) {
         this.repository = repository;
@@ -36,13 +34,13 @@ public class UserServiceImplementation implements UserService{
     }
 
     @Override
-    public User findByUsername(String username) {
-        return repository.findByUsername(username);
+    public User findByUserName(String userName) {
+        return repository.findByUserName(userName);
     }
 
     @Override
     public User login(User user) {
-        User exists = repository.findByUsername(user.getuName());
+        User exists = findByUserName(user.userName);
         if(exists != null){
             if(exists.getPassword().equals(user.getPassword())){
                 return user;

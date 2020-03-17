@@ -1,9 +1,11 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -13,18 +15,18 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String username;
+    public String userName;
     private String password;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
-    private List<Exercise> userExercices = new ArrayList<>();
+    private ArrayList<Exercise> userExercices;
 
-    public List<Exercise> getUserExercice() {
+    public ArrayList<Exercise> getUserExercice() {
         return userExercices;
     }
 
-    public void setUserExercices(List<Exercise> exercices) {
+    public void setUserExercices(ArrayList<Exercise> exercices) {
         this.userExercices = exercices;
     }
 
@@ -41,14 +43,14 @@ public class User{
 
     @Override
     public String toString() {
-        return username;
+        return userName;
     }
 
-    public String getuName() {
-        return username;
+    public String getuserName() {
+        return userName;
     }
 
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }
@@ -57,9 +59,9 @@ public class User{
         this.password = password;
     }
 
-    public User(String username, String password) {
-        super();
-        this.username = username;
+    public User(String userName, String password) {
+        //super();
+        this.userName = userName;
         this.password = password;
         this.userExercices = new ArrayList<Exercise>();
     }

@@ -1,6 +1,8 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 public class Exercise {
@@ -8,19 +10,18 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    private Exercise exercise;
-
-    private String title;
-    private String description;
-    private Double duration;
+    @NotNull
+    private int duration;
+    @NotNull
+    private Date date;
+    private String type;
 
     public Exercise() { }
 
-    public Exercise(String title, String description, Double duration) {
-        this.title = title;
-        this.description = description;
+    public Exercise(int duration, Date date, String type) {
         this.duration = duration;
+        this.date = date;
+        this.type = type;
     }
 
     public Exercise(Exercise exercise) { }
@@ -29,39 +30,32 @@ public class Exercise {
         return id;
     }
 
-    public void setId(long id) { 
-        this.id = id; 
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getDuration() {
+    
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Double duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public User getUser() {
-        return user;
+    public Date getDate() {
+        return date;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
