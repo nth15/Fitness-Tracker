@@ -2,13 +2,17 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
 import java.util.Queue;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+@Entity
 public class Route {
 
+    @NotNull
     private String name;
     /** 
      * TODO queue eða eh annað 
      * */
+    @OneToMany(mappedBy = "route")
     private Queue<Coordinate> polyline;
 
     public Route(String name, Queue<Coordinate> polyline) {

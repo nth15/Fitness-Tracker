@@ -19,7 +19,6 @@ public class User{
     private String password;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties({"user"})
     private ArrayList<Exercise> userExercices;
 
     public ArrayList<Exercise> getUserExercice() {

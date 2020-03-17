@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Strength {
+    
     @NotNull
     private int weight;
     @NotNull

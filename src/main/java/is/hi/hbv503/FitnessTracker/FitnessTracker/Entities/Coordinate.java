@@ -2,6 +2,7 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
 import javax.persistence.*;
 
+@Entity
 public class Coordinate {
 
     private Double latitude;
