@@ -4,8 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-import javax.persistence.Entity;
-
 /**
  * Strength extends Exercise
  * TODO JSON example object

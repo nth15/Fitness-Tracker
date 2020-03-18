@@ -3,11 +3,6 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -41,14 +36,6 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<Exercise> getUserExercises() {
-        return userExercises;
-    }
-
-    public void setUserExercises(ArrayList<Exercise> exercises) {
-        this.userExercises = exercises;
-    }
-
     public User() {
     }
 
@@ -65,8 +52,12 @@ public class User {
         return userName;
     }
 
-    public String getuserName() {
+    public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -76,6 +67,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Exercise> getUserExercises() {
+        return userExercises;
+    }
+
+    public void setUserExercises(ArrayList<Exercise> exercises) {
+        this.userExercises = exercises;
     }
 
     public void addExercise(Exercise exercise) {
