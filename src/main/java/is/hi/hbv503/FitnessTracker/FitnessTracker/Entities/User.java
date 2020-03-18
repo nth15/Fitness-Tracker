@@ -26,10 +26,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
-    private ArrayList<Exercise> userExercises = new ArrayList<>();
+    private List<Exercise> userExercises = new ArrayList<>();
 
-    public User() {
-    }
+    public User() { }
 
     /**
      * Initializes user with empty userExercises
@@ -73,11 +72,11 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<Exercise> getUserExercises() {
+    public List<Exercise> getUserExercises() {
         return userExercises;
     }
 
-    public void setUserExercises(ArrayList<Exercise> exercises) {
+    public void setUserExercises(List<Exercise> exercises) {
         this.userExercises = exercises;
     }
 

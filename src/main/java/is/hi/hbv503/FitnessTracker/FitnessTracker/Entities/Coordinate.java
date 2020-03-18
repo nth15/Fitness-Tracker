@@ -1,8 +1,8 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * Coordinates to map out the route for Route
@@ -10,15 +10,40 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Coordinate {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @ManyToOne
+    @JsonIgnoreProperties("route")
+    private Route route;
 
     private Double latitude;
     private Double longitude;
 
     public Coordinate() { }
 
-    public Coordinate(Double latitude, Double longitude) {
+    public Coordinate(Route route, Double latitude, Double longitude) {
+        this.route = route;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
     }
 
     public Double getLatitude() {

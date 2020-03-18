@@ -30,39 +30,8 @@ public class ExerciseServiceImplementation implements ExerciseService {
         repository.delete(exercise);
     }
 
-
-    @Override
-    public List<Exercise> getCardio() {
-        return repository.getCardio();
-    }
-
-    @Override
-    public List<Exercise> getStrength() {
-        return repository.getStrength();
-    }
-
     @Override
     public List<Exercise> findAll() {
         return repository.findAll();
-    }    
-
-    @Override
-    public List<Exercise> findByType(String type) {
-        return repository.findByType(type);
-    }
-
-    @Override
-    public List<Exercise> findByPeriod(Date start, Date end) {
-        return repository.findByPeriod(start, end);
-    }
-
-    @Override
-    public List<Exercise> findByRoute(String name) {
-        return repository.findByRoute(name);
-    }
-    
-    @Override
-    public Optional<Exercise> findById(long id) {
-        return repository.findById(id);
     }
 }

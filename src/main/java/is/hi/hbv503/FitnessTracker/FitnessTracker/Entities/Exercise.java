@@ -36,8 +36,6 @@ public class Exercise {
         this.type = type;
     }
 
-    // public Exercise(Exercise exercise) { }
-
     public long getId() {
         return id;
     }

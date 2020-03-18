@@ -1,10 +1,10 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
-import java.util.Queue;
+import java.util.List;
+import java.util.ArrayList;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import javax.persistence.Entity;
 
 /**
  * Route object used by Cardio to map out a Route
@@ -13,23 +13,28 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Route {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotNull
     private String name;
-    /** 
-     * !!!!!!!!!!!!!!
-     * TODO
-     * !!!!!!!!!!!!!! 
-     * queue eða eh annað 
-     * */
     @OneToMany(mappedBy = "route")
-    private Queue<Coordinate> polyline;
+    private List<Coordinate> polyline = new ArrayList<>();
 
     public Route() { }
 
-    public Route(String name, Queue<Coordinate> polyline) {
+    public Route(String name, List<Coordinate> polyline) {
         this.name = name;
         this.polyline = polyline;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,11 +45,11 @@ public class Route {
         this.name = name;
     }
 
-    public Queue<Coordinate> getPolyline() {
+    public List<Coordinate> getPolyline() {
         return polyline;
     }
 
-    public void setPolyline(Queue<Coordinate> polyline) {
+    public void setPolyline(List<Coordinate> polyline) {
         this.polyline = polyline;
     }
 }

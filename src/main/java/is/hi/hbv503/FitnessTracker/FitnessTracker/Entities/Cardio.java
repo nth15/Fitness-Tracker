@@ -17,18 +17,20 @@ public class Cardio extends Exercise {
     private int topSpeed;
     @NotNull
     private int distance;
+    @OneToOne(targetEntity=Route.class)
     private Route route;
 
     public Cardio() { }
 
-    public Cardio(User user, int duration, Date date, String type, int topSpeed,int distance, Route route) {
+    public Cardio(User user, int duration, Date date, String type, int topSpeed, int distance, Route route) {
         super(user, duration, date, type);
         this.topSpeed = topSpeed;
         this.distance = distance;
         this.route = route;
     }
 
-    public Cardio(Cardio cardio) { }
+    public Cardio(Cardio cardio) {
+    }
 
     public int getTopSpeed() {
         return topSpeed;

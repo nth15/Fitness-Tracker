@@ -24,12 +24,14 @@ public class MakeData {
 
     @Autowired
     public MakeData() {
+
     }
     
     /**
      * Creates sample data to work with in development
      * @return 
      */
+    @RequestMapping("/jee")
     public ResponseEntity<GetUserResponse> makeData(){
         User tempUser = new User("Jon Jonnson", "pass123");
 
@@ -47,6 +49,7 @@ public class MakeData {
                 case 1: e = genStrength(tempUser, d);
                         break;
             }
+            System.out.println(i);
             tempUser.addExercise(e);
         }
         List<String> errors = new ArrayList<>();
