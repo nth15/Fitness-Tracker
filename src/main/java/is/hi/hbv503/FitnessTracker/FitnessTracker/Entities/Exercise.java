@@ -1,5 +1,8 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -14,6 +17,10 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne
+    @JsonIgnoreProperties("user")
+    private User user;
+
     @NotNull
     private int duration;
     @NotNull
@@ -22,7 +29,8 @@ public class Exercise {
 
     public Exercise() { }
 
-    public Exercise(int duration, Date date, String type) {
+    public Exercise(User user, int duration, Date date, String type) {
+        this.user = user;
         this.duration = duration;
         this.date = date;
         this.type = type;
@@ -38,6 +46,13 @@ public class Exercise {
         this.id = id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     
     public int getDuration() {
         return duration;
@@ -62,4 +77,5 @@ public class Exercise {
     public void setType(String type) {
         this.type = type;
     }
+
 }

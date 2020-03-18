@@ -4,6 +4,8 @@ import java.util.Queue;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import javax.persistence.Entity;
+
 /**
  * Route object used by Cardio to map out a Route
  * with a Queue<Coordinate>

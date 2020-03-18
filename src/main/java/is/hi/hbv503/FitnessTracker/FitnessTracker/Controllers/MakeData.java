@@ -10,11 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,12 +42,12 @@ public class MakeData {
             Date d = Date.from(l.plusDays(i).atStartOfDay(defaultZoneId).toInstant());
             int r = (int)Math.round(Math.random());
             switch(r) {
-                case 0: e = genCardio(d);
+                case 0: e = genCardio(tempUser, d);
                         break;
-                case 1: e = genStrength(d);
+                case 1: e = genStrength(tempUser, d);
                         break;
             }
-            tempUser.addExercice(e);
+            tempUser.addExercise(e);
         }
         List<String> errors = new ArrayList<>();
         errors.add("Data created");
@@ -60,22 +55,22 @@ public class MakeData {
     }
 
     // Cardio(Exercise(int duration, Date date, String type), duration, topspeed, distance)
-    public Cardio genCardio(Date date) {
+    public Cardio genCardio(User user, Date date) {
         String[] t = {"Bikeriding", "running"};
         int duration = (int)(Math.random()* 75 + 25);
         String type = t[(int)Math.round(Math.random())];
         int topSpeed = (int)(Math.random() * 25 + 12);
         int distance = (int)(Math.random() * 25 + 5);
-        return new Cardio(duration, date, type, topSpeed, distance, null);
+        return new Cardio(user, duration, date, type, topSpeed, distance, null);
     }
 
     // Strength(Exercise(int duration, Date date, String type), int weight, int times)
-    public Strength genStrength(Date date) {
+    public Strength genStrength(User user, Date date) {
         String[] t = {"veitekki", "ehe", "hehe"};
         int duration = (int)(Math.random()* 75) + 25;
         String type = t[(int)(Math.random() * 3)];
         int weight = (int)(Math.random() * 100) + 5;
         int times = (int)(Math.random() * 40 )+ 5;
-        return new Strength(duration, date, type, weight, times);
+        return new Strength(user, duration, date, type, weight, times);
     }
 }

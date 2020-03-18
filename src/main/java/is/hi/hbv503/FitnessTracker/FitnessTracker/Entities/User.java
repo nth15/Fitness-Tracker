@@ -3,6 +3,11 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,7 +26,8 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private ArrayList<Exercise> userExercices;
+    @JsonIgnoreProperties({"user"})
+    private ArrayList<Exercise> userExercises = new ArrayList<>();
     
     /**
      * Initializes user with empty userExercises
@@ -30,18 +36,17 @@ public class User {
      * @param password
      */
     public User(String userName, String password) {
-        //super();
+        super();
         this.userName = userName;
         this.password = password;
-        this.userExercices = new ArrayList<Exercise>();
     }
 
-    public ArrayList<Exercise> getUserExercice() {
-        return userExercices;
+    public ArrayList<Exercise> getUserExercises() {
+        return userExercises;
     }
 
-    public void setUserExercices(ArrayList<Exercise> exercices) {
-        this.userExercices = exercices;
+    public void setUserExercises(ArrayList<Exercise> exercises) {
+        this.userExercises = exercises;
     }
 
     public User() {
@@ -73,7 +78,7 @@ public class User {
         this.password = password;
     }
 
-    public void addExercice(Exercise exercise) {
-        userExercices.add(exercise);
+    public void addExercise(Exercise exercise) {
+        userExercises.add(exercise);
     }
 }

@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 /**
  * Strength extends Exercise
  * TODO JSON example object
@@ -16,8 +18,8 @@ public class Strength extends Exercise {
     @NotNull
     private int times;
 
-    public Strength(int duration, Date date, String type, int weight, int times) {
-        super(duration, date, type);
+    public Strength(User user, int duration, Date date, String type, int weight, int times) {
+        super(user, duration, date, type);
         this.weight = weight;
         this.times = times;
     }
