@@ -3,6 +3,10 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 
+import javax.persistence.*;
+import java.util.List;
+import javax.validation.constraints.Pattern;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,7 +27,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties({"user"})
     private ArrayList<Exercise> userExercises = new ArrayList<>();
-    
+
+    public User() {
+    }
+
     /**
      * Initializes user with empty userExercises
      * Used in development
@@ -34,9 +41,6 @@ public class User {
         super();
         this.userName = userName;
         this.password = password;
-    }
-
-    public User() {
     }
 
     public long getId() {

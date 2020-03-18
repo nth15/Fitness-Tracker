@@ -16,6 +16,8 @@ public class Strength extends Exercise {
     @NotNull
     private int times;
 
+    public Strength() { }
+
     public Strength(User user, int duration, Date date, String type, int weight, int times) {
         super(user, duration, date, type);
         this.weight = weight;

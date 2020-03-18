@@ -25,6 +25,8 @@ public class Route {
     @OneToMany(mappedBy = "route")
     private Queue<Coordinate> polyline;
 
+    public Route() { }
+
     public Route(String name, Queue<Coordinate> polyline) {
         this.name = name;
         this.polyline = polyline;

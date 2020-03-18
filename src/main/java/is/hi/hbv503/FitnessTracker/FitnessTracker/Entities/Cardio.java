@@ -19,6 +19,8 @@ public class Cardio extends Exercise {
     private int distance;
     private Route route;
 
+    public Cardio() { }
+
     public Cardio(User user, int duration, Date date, String type, int topSpeed,int distance, Route route) {
         super(user, duration, date, type);
         this.topSpeed = topSpeed;
