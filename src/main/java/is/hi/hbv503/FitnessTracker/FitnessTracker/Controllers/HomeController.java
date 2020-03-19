@@ -75,7 +75,7 @@ public class HomeController {
      * Sign up user
      * Request body example:
      * {
-     *     "uName": username,
+     *     "userName": username,
      *     "password": password
      * }
      */
