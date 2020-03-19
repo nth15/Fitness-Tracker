@@ -11,13 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/exercise")
 public class UserController {
 
-    private UserService userService;
-    
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> delete(@PathVariable("id") long id){
-        // TODO
-        
-        return ResponseEntity.noContent().build();
-    }
+    // 
     
 }

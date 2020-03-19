@@ -54,7 +54,7 @@ public class MakeData {
         }
         List<String> errors = new ArrayList<>();
         errors.add("Data created");
-        return new ResponseEntity<>(new GetUserResponse(null, null, errors ), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(new GetUserResponse(tempUser, null, errors ), HttpStatus.UNAUTHORIZED);
     }
 
     // Cardio(Exercise(int duration, Date date, String type), duration, topspeed, distance)

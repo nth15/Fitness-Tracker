@@ -51,7 +51,7 @@ public class HomeController {
      * Login user
      * Request object example:
      * {
-     *     "uName": username,
+     *     "userName": username,
      *     "password": password
      * }
      */
@@ -68,6 +68,16 @@ public class HomeController {
         List<String> errors = new ArrayList<>();
         errors.add("Login unsuccessful");
         return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, errors), HttpStatus.BAD_REQUEST);
+    }
+    
+
+    @RequestMapping(value ="/addexercise", method = RequestMethod.POST)
+    public ResponseEntity<AddExerciseResponse> addExercise(@Valid @RequestBody Exercise exercise, BindingResult result){
+        if(result.hasErrors()){
+            // TODO something with errors
+            return new ResponseEntity<>(new AddExerciseResponse(null, result.getFieldErrors()), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new AddExerciseResponse(exerciseService.save(exercise)), HttpStatus.CREATED);
     }
 
 }
