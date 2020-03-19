@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * TODO JSON example object
  */
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema="public", catalog = "postgres")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
