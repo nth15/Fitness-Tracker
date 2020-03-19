@@ -1,8 +1,6 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Controllers;
 
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Entities.*;
-import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.ExerciseService;
-import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.UserService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Wrappers.Responses.*;
 
 import org.springframework.http.HttpStatus;
@@ -23,15 +21,13 @@ import java.time.ZoneId;
 public class MakeData {
 
     @Autowired
-    public MakeData() {
-
-    }
+    public MakeData() { }
     
     /**
      * Creates sample data to work with in development
      * @return 
      */
-    @RequestMapping("/jee")
+    @RequestMapping("/")
     public ResponseEntity<GetUserResponse> makeData(){
         User tempUser = new User("Jon Jonnson", "pass123");
 

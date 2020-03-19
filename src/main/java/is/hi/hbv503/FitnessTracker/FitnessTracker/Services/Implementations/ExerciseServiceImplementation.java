@@ -31,6 +31,11 @@ public class ExerciseServiceImplementation implements ExerciseService {
     }
 
     @Override
+    public Exercise findById(long id) {
+        return repository.findById(id);
+    }
+
+    @Override
     public List<Exercise> findAll() {
         return repository.findAll();
     }

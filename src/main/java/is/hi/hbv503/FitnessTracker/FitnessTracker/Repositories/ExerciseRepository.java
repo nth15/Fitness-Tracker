@@ -11,6 +11,7 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
     Exercise save(Exercise exercise);
     void delete(Exercise exercise);
+    Exercise findById(long id);
     List<Exercise> findAll();
 
 }

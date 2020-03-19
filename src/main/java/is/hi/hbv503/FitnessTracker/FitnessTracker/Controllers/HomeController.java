@@ -70,6 +70,20 @@ public class HomeController {
         return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, errors), HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * 
+     * @param session
+     * @return 
+     */
+    @RequestMapping(value = "/loggedin", method = RequestMethod.GET)
+    public User loggedinGET(HttpSession session) {
+        User sessionUser = (User) session.getAttribute("LoggedInUser");
+        if (sessionUser != null) {
+            return sessionUser;
+        } else
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You have to be logged in");
+    }
+
     
     /**
      * Sign up user

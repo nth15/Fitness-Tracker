@@ -12,6 +12,7 @@ public interface ExerciseService {
 
     Exercise save(Exercise exercise);
     void delete(Exercise exercise);
+    Exercise findById(long id);
     List<Exercise> findAll();
 
 }
