@@ -69,7 +69,32 @@ public class HomeController {
         errors.add("Login unsuccessful");
         return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, errors), HttpStatus.BAD_REQUEST);
     }
+
     
+    /**
+     * Sign up user
+     * Request body example:
+     * {
+     *     "uName": username,
+     *     "password": password
+     * }
+     */
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public ResponseEntity<LoginAndSignUpResponse> signUpPOST(@Valid @RequestBody User user, BindingResult result){
+        if(result.hasErrors()){
+            return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, result.getFieldErrors()), HttpStatus.BAD_REQUEST);
+        }
+        User exists = userService.findByUserName(user.userName);
+        if(exists == null) {
+            userService.save(user);
+        } else {
+            List<String> errors = new ArrayList<>();
+            errors.add("Username already taken");
+            return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, errors), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new LoginAndSignUpResponse(user, "User created successfully", null), HttpStatus.CREATED);
+    }
+
 
     @RequestMapping(value ="/addexercise", method = RequestMethod.POST)
     public ResponseEntity<AddExerciseResponse> addExercise(@Valid @RequestBody Exercise exercise, BindingResult result){
