@@ -15,4 +15,10 @@ public class CardioServiceImplementation implements CardioService {
     public CardioServiceImplementation(CardioRepository cardioRepository) {
         this.repository = cardioRepository;
     }
+
+    
+    @Override
+    public Cardio save(Cardio strength) {
+        return repository.save(strength);
+    }
 }

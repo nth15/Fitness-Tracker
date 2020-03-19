@@ -15,4 +15,10 @@ public class StrengthServiceImplementation implements StrengthService {
     public StrengthServiceImplementation(StrengthRepository strengthRepository) {
         this.repository = strengthRepository;
     }
+
+    @Override
+    public Strength save(Strength strength) {
+        return repository.save(strength);
+    }
+
 }

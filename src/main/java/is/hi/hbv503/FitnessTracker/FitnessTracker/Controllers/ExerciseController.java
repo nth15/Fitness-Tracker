@@ -1,6 +1,8 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Controllers;
 
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.ExerciseService;
+import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.StrengthService;
+import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.CardioService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,8 @@ public class ExerciseController {
 
     private UserService userService;
     private ExerciseService exerciseService;
+    private StrengthService strengthService;
+    private CardioService cardioService;
 
     @Autowired
     public ExerciseController(UserService userService, ExerciseService exerciseService) {
@@ -69,4 +73,24 @@ public class ExerciseController {
         return new ResponseEntity<>(new GetAllExercisesResponse(exerciseService.findAll()), HttpStatus.OK);
     }
 
+
+    @RequestMapping(value ="/addstrength", method = RequestMethod.POST)
+    public ResponseEntity<AddStrengthResponse> addStrength(@Valid @RequestBody Strength strength, BindingResult result){
+        if(result.hasErrors()){
+            // TODO something with errors
+            return new ResponseEntity<>(new AddStrengthResponse(null, result.getFieldErrors()), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new AddStrengthResponse(strengthService.save(strength)), HttpStatus.CREATED);
+    }
+
+    
+
+    @RequestMapping(value ="/addcardio", method = RequestMethod.POST)
+    public ResponseEntity<AddCardioResponse> addCardio(@Valid @RequestBody Cardio cardio, BindingResult result){
+        if(result.hasErrors()){
+            // TODO something with errors
+            return new ResponseEntity<>(new AddCardioResponse(null, result.getFieldErrors()), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new AddCardioResponse(cardioService.save(cardio)), HttpStatus.CREATED);
+    }
 }
