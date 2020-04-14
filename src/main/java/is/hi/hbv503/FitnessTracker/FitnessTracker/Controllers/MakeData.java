@@ -49,6 +49,7 @@ public class MakeData {
             tempUser.addExercise(e);
         }
         List<String> errors = new ArrayList<>();
+        userService.save(user);
         errors.add("Data created");
         return new ResponseEntity<>(new GetUserResponse(tempUser, null, errors ), HttpStatus.UNAUTHORIZED);
     }
