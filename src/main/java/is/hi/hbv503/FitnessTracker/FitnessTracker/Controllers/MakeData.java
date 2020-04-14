@@ -1,6 +1,7 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Controllers;
 
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Entities.*;
+import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.ExerciseService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.UserService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Wrappers.Responses.*;
 
@@ -22,6 +23,7 @@ import java.time.ZoneId;
 public class MakeData {
 
     private UserService userService;
+    private ExerciseService exerciseService;
 
     @Autowired
     public MakeData() { }
@@ -33,6 +35,15 @@ public class MakeData {
     @RequestMapping("/")
     public ResponseEntity<LoginAndSignUpResponse> makeData(){
         User user = new User("JONJONJONJON", "pass123");
+
+        User exists = userService.findByUserName(user.userName);
+        if(exists == null) {
+            userService.save(user);
+        } else {
+            List<String> errors = new ArrayList<>();
+            errors.add("Username already taken");
+            return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, errors), HttpStatus.BAD_REQUEST);
+        }
 
         String startDate = "2020-01-01";
         LocalDate l = LocalDate.parse(startDate);
@@ -49,15 +60,7 @@ public class MakeData {
                         break;
             }
             System.out.println(i);
-            user.addExercise(e);
-        }
-        User exists = userService.findByUserName(user.userName);
-        if(exists == null) {
-            userService.save(user);
-        } else {
-            List<String> errors = new ArrayList<>();
-            errors.add("Username already taken");
-            return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, errors), HttpStatus.BAD_REQUEST);
+            exerciseService.save(e);
         }
         return new ResponseEntity<>(new LoginAndSignUpResponse(user, "User created successfully", null), HttpStatus.CREATED);
     }
