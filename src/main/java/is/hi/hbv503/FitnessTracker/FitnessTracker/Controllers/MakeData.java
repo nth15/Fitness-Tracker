@@ -1,6 +1,7 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Controllers;
 
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Entities.*;
+import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.UserService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Wrappers.Responses.*;
 
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ import java.time.ZoneId;
 @RestController
 @RequestMapping("/makedata")
 public class MakeData {
+
+    private UserService userService;
 
     @Autowired
     public MakeData() { }
@@ -49,7 +52,7 @@ public class MakeData {
             tempUser.addExercise(e);
         }
         List<String> errors = new ArrayList<>();
-        userService.save(user);
+        userService.save(tempUser);
         errors.add("Data created");
         return new ResponseEntity<>(new GetUserResponse(tempUser, null, errors ), HttpStatus.UNAUTHORIZED);
     }
