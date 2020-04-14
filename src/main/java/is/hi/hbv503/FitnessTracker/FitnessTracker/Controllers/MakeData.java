@@ -2,6 +2,8 @@ package is.hi.hbv503.FitnessTracker.FitnessTracker.Controllers;
 
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Entities.*;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.ExerciseService;
+import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.StrengthService;
+import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.CardioService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.UserService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Wrappers.Responses.*;
 
@@ -23,7 +25,8 @@ import java.time.ZoneId;
 public class MakeData {
 
     private UserService userService;
-    private ExerciseService exerciseService;
+    private CardioService cardioService;
+    private StrengthService strengthService;
 
     @Autowired
     public MakeData() { }
@@ -33,8 +36,8 @@ public class MakeData {
      * @return 
      */
     @RequestMapping("/")
-    public ResponseEntity<LoginAndSignUpResponse> makeData(){
-        User user = new User("JONJONJONJON", "pass123");
+    public ResponseEntity<GetUserResponse> makeData(){
+        User user = new User("kisi", "pass123");
 
         User exists = userService.findByUserName(user.userName);
         if(exists == null) {
@@ -42,27 +45,25 @@ public class MakeData {
         } else {
             List<String> errors = new ArrayList<>();
             errors.add("Username already taken");
-            return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, errors), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new GetUserResponse(user, null, errors), HttpStatus.BAD_REQUEST);
         }
 
         String startDate = "2020-01-01";
         LocalDate l = LocalDate.parse(startDate);
         ZoneId defaultZoneId = ZoneId.systemDefault();
-        Exercise e = new Exercise();
         
         for (int i = 0; i < 40; i++) {
             Date d = Date.from(l.plusDays(i).atStartOfDay(defaultZoneId).toInstant());
             int r = (int)Math.round(Math.random());
             switch(r) {
-                case 0: e = genCardio(user, d);
+                case 0: cardioService.save(genCardio(user, d));
                         break;
-                case 1: e = genStrength(user, d);
+                case 1: strengthService.save(genStrength(user, d));
                         break;
             }
             System.out.println(i);
-            exerciseService.save(e);
         }
-        return new ResponseEntity<>(new LoginAndSignUpResponse(user, "User created successfully", null), HttpStatus.CREATED);
+        return new ResponseEntity<>(new GetUserResponse(user, "User created successfully", null), HttpStatus.CREATED);
     }
 
     // Cardio(Exercise(int duration, Date date, String type), duration, topspeed, distance)
