@@ -31,8 +31,8 @@ public class MakeData {
      * @return 
      */
     @RequestMapping("/")
-    public ResponseEntity<GetUserResponse> makeData(){
-        User tempUser = new User("Jon Jonnson", "pass123");
+    public ResponseEntity<LoginAndSignUpResponse> makeData(){
+        User user = new User("JONJONJONJON", "pass123");
 
         String startDate = "2020-01-01";
         LocalDate l = LocalDate.parse(startDate);
@@ -43,18 +43,23 @@ public class MakeData {
             Date d = Date.from(l.plusDays(i).atStartOfDay(defaultZoneId).toInstant());
             int r = (int)Math.round(Math.random());
             switch(r) {
-                case 0: e = genCardio(tempUser, d);
+                case 0: e = genCardio(user, d);
                         break;
-                case 1: e = genStrength(tempUser, d);
+                case 1: e = genStrength(user, d);
                         break;
             }
             System.out.println(i);
-            tempUser.addExercise(e);
+            user.addExercise(e);
         }
-        List<String> errors = new ArrayList<>();
-        userService.save(tempUser);
-        errors.add("Data created");
-        return new ResponseEntity<>(new GetUserResponse(tempUser, null, errors ), HttpStatus.UNAUTHORIZED);
+        User exists = userService.findByUserName(user.userName);
+        if(exists == null) {
+            userService.save(user);
+        } else {
+            List<String> errors = new ArrayList<>();
+            errors.add("Username already taken");
+            return new ResponseEntity<>(new LoginAndSignUpResponse(user, null, errors), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new LoginAndSignUpResponse(user, "User created successfully", null), HttpStatus.CREATED);
     }
 
     // Cardio(Exercise(int duration, Date date, String type), duration, topspeed, distance)
