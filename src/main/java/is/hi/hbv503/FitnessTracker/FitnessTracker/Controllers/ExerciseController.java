@@ -63,6 +63,18 @@ public class ExerciseController {
     }
 
     /**
+     * 
+     */
+    @RequestMapping(value ="/addexercise", method = RequestMethod.POST)
+    public ResponseEntity<AddExerciseResponse> addCardio(@Valid @RequestBody Exercise exercise, BindingResult result){
+        if(result.hasErrors()){
+            // TODO something with errors
+            return new ResponseEntity<>(new AddExerciseResponse(null, result.getFieldErrors()), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new AddExerciseResponse(exerciseService.save(exercise)), HttpStatus.CREATED);
+    }
+
+    /**
      * Request object example:
      * {
      *      "id": id,
