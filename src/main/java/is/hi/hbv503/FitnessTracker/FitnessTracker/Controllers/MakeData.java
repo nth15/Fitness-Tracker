@@ -1,7 +1,6 @@
 package is.hi.hbv503.FitnessTracker.FitnessTracker.Controllers;
 
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Entities.*;
-import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.ExerciseService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.StrengthService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.CardioService;
 import is.hi.hbv503.FitnessTracker.FitnessTracker.Services.UserService;
@@ -47,6 +46,8 @@ public class MakeData {
             errors.add("Username already taken");
             return new ResponseEntity<>(new GetUserResponse(user, null, errors), HttpStatus.BAD_REQUEST);
         }
+        Cardio c = null;
+        Strength s = null;
 
         String startDate = "2020-01-01";
         LocalDate l = LocalDate.parse(startDate);
@@ -56,12 +57,13 @@ public class MakeData {
             Date d = Date.from(l.plusDays(i).atStartOfDay(defaultZoneId).toInstant());
             int r = (int)Math.round(Math.random());
             switch(r) {
-                case 0: cardioService.save(genCardio(user, d));
+                case 0: c = genCardio(user,d);
+                        cardioService.save(c);
                         break;
-                case 1: strengthService.save(genStrength(user, d));
+                case 1: s = genStrength(user, d);
+                        strengthService.save(s);
                         break;
             }
-            System.out.println(i);
         }
         return new ResponseEntity<>(new GetUserResponse(user, "User created successfully", null), HttpStatus.CREATED);
     }
